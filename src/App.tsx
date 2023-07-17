@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
-import { Routes, Route, Outlet, Link, useLocation } from "react-router-dom";
+import { Routes, Route, Outlet, Link } from "react-router-dom";
 import { useScript } from "usehooks-ts";
+import { useLocation } from 'react-use';
 
 declare global {
   interface Window {
@@ -14,11 +15,12 @@ export default function App() {
   });
   const isOkaeriReady = status === "ready";
 
-  const location = useLocation();
+  // react-use useLocation for generic usage instead of react-router, netxtjs handlers
+  const location = useLocation(); 
 
   useEffect(() => {
     if (isOkaeriReady) {
-      console.log("pageview")
+      console.log(location)
       window.okaeri("event", "page_view");
     }
   }, [isOkaeriReady, location]);
